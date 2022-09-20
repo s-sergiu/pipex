@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 01:03:37 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/20 04:43:41 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/20 05:03:42 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -55,15 +55,17 @@ int main(int argc, char *argv[], char *envp[])
 	int fileds[2];
 	int i;
 	pid_t pid;
-	char **split;
 	int infile;
+	int outfile;
 	char *buffer;
 	char *path;
+	char **split;
 	char **path_list;
 
 	
 
 	buffer = malloc(5);
+	outfile = open("2.txt", O_RDWR);
 	infile = open(argv[1], O_RDONLY);
 	dup2(infile, 0);
 
@@ -103,7 +105,9 @@ int main(int argc, char *argv[], char *envp[])
 		i++;
 	}
 	close(fileds[1]);
-	read(fileds[0], buffer, 10000);
+	dup2(fileds[0], 0);
+	read(fileds[0], buffer, 2);
+	write(outfile, buffer, 2);
 	close(fileds[0]);
 	printf("out --File descriptor fileds[0] is: %d.\n", fcntl(fileds[0], F_GETFD));
 	printf("out --File descriptor fileds[1] is: %d.\n", fcntl(fileds[1], F_GETFD));
