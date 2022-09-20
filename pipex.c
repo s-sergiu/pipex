@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 01:03:37 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/18 20:57:50 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/20 04:43:41 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -53,74 +53,59 @@ char	*extract_path(char **string, char *cmd)
 int main(int argc, char *argv[], char *envp[])
 {
 	int fileds[2];
+	int i;
 	pid_t pid;
-	pid_t pid2;
-	int code;
 	char **split;
-	char **split_args;
-	char **split_args2;
-	char *test;
-	char *test2;
-	char *infile;
+	int infile;
+	char *buffer;
+	char *path;
+	char **path_list;
 
-	infile = argv[1];
-	ft_printf("%s \n", infile);
-	if (open(infile, O_RDONLY) == -1)
-	{
-		ft_printf("closed \n");
-		perror("Error");
-		ft_printf("\n");
-		exit(1);
-	}
+	
 
-	split = ft_split(envp[find_path(envp)] + 5, ':');
-	split_args = ft_split(*(argv + 2), ' ');
-	split_args2 = ft_split(*(argv + 3), ' ');
-	test = extract_path(split,split_args[0]);
-	test2 = extract_path(split,split_args2[0]);
-
-	ft_printf("Flag is: %d \n", FLAG);
+	buffer = malloc(5);
+	infile = open(argv[1], O_RDONLY);
+	dup2(infile, 0);
 
 	if (argc == 1)
 		write(1, "\n", 1);
 
-	ft_printf("Arg1 split: %s \n", split_args[0]);
-	ft_printf("Arg1 split: %s \n", split_args[1]);
-	ft_printf("Path: -%s-\n", test);	
-	while (i < argc)
+	path_list = ft_split(envp[find_path(envp)] + 5, ':');
 
-	if (pipe(fileds) == -1)
-		return(0);
-
-	pid = fork();
-	if (pid == 0)
+	i = 0;	
+	printf("%s\n", argv[1]);
+	while (i < argc - 2)
 	{
-		close(fileds[0]);
-		dup2(fileds[1], 1);
-		close(fileds[1]);
-		execve(test, split_args, NULL);
-	}
-	waitpid(pid, &code, 0);
-	ft_printf("ls terminated with code %d; \n", code);
-	
-	ft_printf("Arg2 split: %s \n", split_args2[0]);
-	ft_printf("Arg2 split: %s \n", split_args2[1]);
-	ft_printf("Path: -%s-\n", test2);	
+		split = ft_split(argv[i + 2], ' ');
+		path = extract_path(path_list, split[0]);
 
-	pid2 = fork();
-	if (pid2 == 0)
-	{
-		close(fileds[1]);
-		dup2(fileds[0], 0);
-		close(fileds[0]);
-		execve(test2, split_args2, NULL);
+		printf("in --File descriptor fileds[0] is: %d.\n", fcntl(fileds[0], F_GETFD));
+		printf("%d", i);
+		printf("in --File descriptor fileds[1] is: %d.\n", fcntl(fileds[1], F_GETFD));
+		if (fileds[0])
+		{
+			dup2(fileds[0], 0);
+			close(fileds[0]);
+			close(fileds[1]);
+			write(1, "test", 4);
+		}
+		if (pipe(fileds) == -1)
+			return (0);
+		pid = fork();
+		if (pid == 0)
+		{
+			close(fileds[0]);
+			dup2(fileds[1], 1);
+			close(fileds[1]);
+			execve(path, split, NULL);
+		}
+		waitpid(pid, 0, 0);
+		i++;
 	}
-	close(fileds[0]);
 	close(fileds[1]);
-	waitpid(pid2, &code, 0);
-	ft_printf("ls terminated with code %d; \n", code);
-	ft_printf("File descriptor fileds[1] is: %d, and size %d \n", 
-			fcntl(fileds[1], F_GETFD), getdtablesize());
-	ft_printf("File descriptor fileds[0] is: %d, and size %d \n",
-		   	fcntl(fileds[0], F_GETFD), getdtablesize());
+	read(fileds[0], buffer, 10000);
+	close(fileds[0]);
+	printf("out --File descriptor fileds[0] is: %d.\n", fcntl(fileds[0], F_GETFD));
+	printf("out --File descriptor fileds[1] is: %d.\n", fcntl(fileds[1], F_GETFD));
+	printf("buffer: %s\n", buffer);
 }
