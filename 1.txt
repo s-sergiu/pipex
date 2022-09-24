@@ -1,1 +1,21 @@
-adasdsadasdsad 111
+total 368
+drwxr-xr-x  20 ssergiu  2021_heilbronn    680 Sep 23 19:33 .
+drwxr-xr-x  14 ssergiu  2021_heilbronn    476 Sep 17 22:39 ..
+drwxr-xr-x  13 ssergiu  2021_heilbronn    442 Sep 22 21:38 .git
+-rw-r--r--   1 ssergiu  2021_heilbronn  12288 Sep 23 19:30 .pipex.c.swp
+-rw-r--r--   1 ssergiu  2021_heilbronn      0 Sep 23 19:33 1.txt
+-rw-r--r--   1 ssergiu  2021_heilbronn      0 Sep 23 19:32 2.txt
+-rw-r--r--   1 ssergiu  2021_heilbronn   1530 Sep 17 22:39 Makefile
+-rw-r--r--   1 ssergiu  2021_heilbronn   1375 Sep 18 19:56 ft_printf.h
+-rw-r--r--   1 ssergiu  2021_heilbronn   2063 Sep 17 22:39 ft_split.c
+-rw-r--r--   1 ssergiu  2021_heilbronn   1135 Sep 17 22:39 ft_strlcpy.c
+-rw-r--r--   1 ssergiu  2021_heilbronn   1002 Sep 17 22:39 ft_strlen.c
+-rw-r--r--   1 ssergiu  2021_heilbronn   1227 Sep 17 22:39 ft_strncmp.c
+drwxr-xr-x   3 ssergiu  2021_heilbronn    102 Sep 18 19:56 libft
+-rw-r--r--   1 ssergiu  2021_heilbronn  40456 Sep 17 22:39 libft.a
+-rw-r--r--   1 ssergiu  2021_heilbronn   3113 Sep 17 22:39 libft.h
+-rw-r--r--   1 ssergiu  2021_heilbronn  74432 Sep 18 19:54 libftprintf.a
+-rwxr-xr-x   1 ssergiu  2021_heilbronn  13980 Sep 23 19:33 pipex
+-rw-r--r--   1 ssergiu  2021_heilbronn   2515 Sep 23 19:29 pipex.c
+drwxr-xr-x   3 ssergiu  2021_heilbronn    102 Sep 17 22:39 pipex.dSYM
+-rw-r--r--   1 ssergiu  2021_heilbronn   7707 Sep 23 13:40 pipex.vim
