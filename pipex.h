@@ -10,6 +10,7 @@
 typedef struct {
 	int infile;
 	int outfile;
+	int	testfile;
 	int fileds[2];
 } files;
 

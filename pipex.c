@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 01:03:37 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/25 01:46:57 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/26 03:11:20 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int main(int argc, char *argv[], char *envp[])
 
 	i = 2;
 	init_files(&file);
+	file.testfile = open("test", O_RDONLY);
 	file.infile = open(argv[1], O_RDONLY);
 	file.outfile = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (file.infile < 0)
@@ -39,30 +40,42 @@ int main(int argc, char *argv[], char *envp[])
 		path.arg =(*path.functionPointer)(path.split, path.args[0]);
 		if (file.fileds[0] != -1)
 		{
-			printf("oins: %d\n", i);
 			dup2(file.fileds[0], 0);
 			close(file.fileds[0]);
 			close(file.fileds[1]);
 		}
+		printf("At i %d, my file.fileds[0] is: %d. \n", i , file.fileds[0]);
+		printf("At i %d, my file.fileds[1] is: %d. \n", i , file.fileds[1]);
 		initialize_pipe(file.fileds);
-		pid = fork();
+		if (file.infile < 0 && i == 2)
+			;
+		else
+			pid = fork();
 		if (pid == 0) 
 		{
-			close(file.fileds[0]);
-//			printf("----------------------------\n");
-//			printf("Argc is: %d.\n", argc);
-//			printf("i is: %d.\n", i);
-//			printf("Argc - 1 is: %d.\n", argc - 1);
-//			printf("arg is: %s.\n", path.args[0]);
-			if (i == argc - 2)
+			printf("----------------------------\n");
+			printf("Argc is: %d.\n", argc);
+			printf("i is: %d.\n", i);
+			printf("Argc - 1 is: %d.\n", argc - 1);
+			printf("arg is: %s.\n", path.args[0]);
+			if (file.infile < 0 && i == 2)
 			{
-				close(file.fileds[0]);
+				close(file.fileds[1]);
+				dup2(file.fileds[0], 0);
+			}
+			else if (i == argc - 2)
+			{
 				dup2(file.outfile, 1);
+				close(file.fileds[1]);
+				close(file.fileds[0]);
+				execve(path.arg, path.args, envp);
 			}
 			else
+			{
 				dup2(file.fileds[1], 1);
-			close(file.fileds[1]);
-			execve(path.arg, path.args, NULL);
+				close(file.fileds[0]);
+				execve(path.arg, path.args, envp);
+			}
 		}
 		i++;
 	}

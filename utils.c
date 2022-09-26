@@ -2,6 +2,7 @@
 
 void	init_files(files *file)
 {
+	file->testfile = -1;
 	file->infile = -1;
 	file->outfile = -1;
 	file->fileds[1] = -1;
