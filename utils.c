@@ -28,6 +28,8 @@ char	*extract_path(char **string, char *cmd)
 	char *path;
 	
 	index = -1;
+	if (access(cmd, R_OK) == 0)
+		return (cmd);
 	while(string[++index] != 0)
 	{
 		path = ft_strjoin(string[index], "/");

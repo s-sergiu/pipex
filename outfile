@@ -1,0 +1,25 @@
+1.txt
+2.txt
+Makefile
+asd
+ft_printf.h
+ft_split.c
+ft_strlcpy.c
+ft_strlen.c
+ft_strncmp.c
+grep 88out
+infile
+libft
+libft.a
+libft.h
+libftprintf.a
+out
+outfile
+pipex
+pipex-tester
+pipex.c
+pipex.dSYM
+pipex.h
+pipex.vim
+test
+utils.c

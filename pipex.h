@@ -1,10 +1,7 @@
-#include <stdlib.h>
+#include <sys/errno.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include "libft.h"
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/wait.h>
 #include "ft_printf.h"
 
 typedef struct {
