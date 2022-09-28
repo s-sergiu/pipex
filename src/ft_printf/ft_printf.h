@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 10:10:02 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/06/25 08:08:43 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/28 00:52:04 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdarg.h>
 # include <stdlib.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 
 int		print_p(unsigned long n);
 int		print_string(char *str);

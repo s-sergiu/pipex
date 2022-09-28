@@ -1,4 +1,4 @@
-#include "pipex.h"
+#include "../include/pipex.h"
 
 void	init_files(files *file)
 {
