@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 01:03:37 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/29 05:34:13 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/29 22:25:59 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int main(int argc, char *argv[], char *envp[])
 	paths path;	
 	pid_t pid;
 	char *error;
-	
 
 	if (argc < 5 || argc == 1)
 	{
@@ -30,15 +29,27 @@ int main(int argc, char *argv[], char *envp[])
 	i = 2;
 	init_files(&file);
 	file.testfile = open("test", O_RDONLY);
-	file.infile = open(argv[1], O_RDONLY);
-	file.outfile = open(argv[argc - 1], O_WRONLY | O_TRUNC | O_CREAT , 0644);
-	if (file.infile < 0)
+	if (!ft_strncmp(argv[1], "here_doc", 8))
 	{
-		error = strerror(errno);
-		ft_printf("%s: %s: %s\n", argv[0], argv[1], error);
+		initialize_pipe(file.fileds);
+		pid = fork();
+		if (pid == 0)
+			here_function(argv[2], file.fileds);
+		waitpid(pid, 0, 0);
+		i = 3;
 	}
-	else 
-		dup2(file.infile, 0);
+	else
+	{
+		file.infile = open(argv[1], O_RDONLY);
+		if (file.infile < 0)
+		{
+			error = strerror(errno);
+			ft_printf("%s: %s: %s\n", argv[0], argv[1], error);
+		}
+		else 
+			dup2(file.infile, 0);
+	}
+	file.outfile = open(argv[argc - 1], O_WRONLY | O_TRUNC | O_CREAT , 0644);
 
 	initialize_paths(envp, &path);
 
@@ -64,11 +75,11 @@ int main(int argc, char *argv[], char *envp[])
 			pid = fork();
 		if (pid == 0) 
 		{
-//			printf("-----------------------------\n");
-//			printf("Argc is: %d.\n", argc);
-//			printf("i is: %d.\n", i);
-//			printf("Argc - 1 is: %d.\n", argc - 1);
-//			printf("arg is: %s.\n", path.args[0]);
+			printf("-----------------------------\n");
+			printf("Argc is: %d.\n", argc);
+			printf("i is: %d.\n", i);
+			printf("Argc - 1 is: %d.\n", argc - 1);
+			printf("arg is: %s.\n", path.args[0]);
 			if ((file.infile < 0 && i == 2) || !path.arg)
 			{
 				if (!path.arg && i < argc -2)
