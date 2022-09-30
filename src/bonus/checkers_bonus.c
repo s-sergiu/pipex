@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 02:35:05 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 18:42:46 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/30 19:50:11 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/pipex.h"
@@ -29,11 +29,22 @@ void	check_path_and_arg(struct paths *path,
 	}
 }
 
-void	check_arg_count(int argc)
+void	check_arg_count(int argc, char **argv)
 {
-	if (argc < 5 || argc == 1)
+	if (argc == 1)
 	{
-		write(1, "Usage: ./pipex [infile] [cmd1] [cmd2] [outfile] \n", 50);
+		write(1, "Usage: ./pipex [infile] [cmd1] [cmd2] [outfile]\n"
+			"Heredoc usage: ./pipex [here_doc] [LIMITER] [cmd]"
+			"[cmd1] [file1]\n", 112);
+		exit(1);
+	}
+	else if (argc < 5)
+	{
+		if (!strncmp(argv[1], "here_doc", 8))
+			write(1, "Usage: ./pipex [here_doc] [DELIMITER] [cmd]"
+				"[cmd1] [file1]\n", 58);
+		else
+			write(1, "Usage: ./pipex [infile] [cmd1] [cmd2] [outfile] \n", 50);
 		exit(1);
 	}
 }

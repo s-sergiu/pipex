@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:45:35 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 16:33:46 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/30 19:46:40 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char		**ft_split(char const *s, char c);
 int			ft_printf(const char *format, ...);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strjoin(char const *s1, char const *s2);
-void		check_arg_count(int argc);
+void		check_arg_count(int argc, char **argv);
 void		init_counters(struct counters *counter, int argc);
 void		initialize_args(char **argv, int counter,
 				struct paths *path, int argc);
