@@ -6,7 +6,7 @@
 #    By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/25 16:42:02 by ssergiu           #+#    #+#              #
-#    Updated: 2022/09/29 22:16:49 by ssergiu          ###   ########.fr        #
+#    Updated: 2022/09/30 02:45:09 by ssergiu          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,14 @@ TEST = test
 BONUS = pipex_bonus
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 AR = ar rcs
 RM = rm -f
 
 FILES = pipex \
 		utils \
+		utils_2 \
+		utils_3 \
 
 BONUS_FILES = pipex_bonus \
 			  utils_bonus \

@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:45:35 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/29 06:03:24 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/30 02:46:01 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,42 +16,61 @@
 # define BUFFER_SIZE 1
 
 # include <sys/errno.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <string.h>
 # include <stdio.h>
 
-typedef struct {
-	int infile;
-	int outfile;
-	int	testfile;
-	int fileds[2];
-} files;
+typedef struct counters{
+	int	i;
+	int	argc;
+}	t_counters;
 
-typedef struct {
-	char **args;
-	char **split;
-	char *arg;
-	char *(*functionPointer) (char **, char *);
-} paths;
+typedef struct files{
+	int	infile;
+	int	outfile;
+	int	testfile;
+	int	fileds[2];
+}	t_files;
+
+typedef struct paths{
+	char	**args;
+	char	**split;
+	char	*arg;
+	char	*(*function_pointer)(char **, char *);
+}	t_paths;
 
 void		ft_putstr_fd(char *s, int fd);
 size_t		ft_strlen(const char *str);
 int			has_newline(char *buffer);
 int			get_newline_pos(char *buffer);
 char		*ft_strdup(const char *s1);
-char		*gnl_ft_strjoin(char const *s1, char const *s2,int flag);
+char		*gnl_ft_strjoin(char const *s1, char const *s2, int flag);
 char		*get_next_line(int fd);
 void		here_function(char *string, int fileds[]);
-void		init_files(files *file);
+void		init_files(struct files *file);
+void		process_files(struct files *file, char **argv, int argc);
 void		initialize_pipe(int *fileds);
 char		*extract_path(char **string, char *cmd);
 int			find_path(char **string);
-void		initialize_paths(char **envp, paths *path);
+void		initialize_paths(char **envp, struct paths *path);
 char		**ft_split(char const *s, char c);
 int			ft_printf(const char *format, ...);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strjoin(char const *s1, char const *s2);
+void		check_arg_count(int argc);
+void		init_counters(struct counters *counter, int argc);
+void		initialize_args(char **argv, int counter, struct paths *path);
+void		check_pipe_exists(struct files *file);
+void		init_pipe(struct files *file);
+void		check_path_and_arg(struct paths *path,
+				struct counters *counter, char **argv);
+void		check_if_argc_is_last(struct counters *counter,
+				struct files *file, struct paths *path, char **argv);
+void		check_infile_error(struct files *file,
+				struct paths *path, int i, char **argv);
 
 #endif

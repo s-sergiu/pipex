@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 02:08:44 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/29 02:50:26 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/30 00:34:59 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
@@ -16,8 +16,8 @@ int	ft_atoi(const char *str);
 
 void	run_tests(int number)
 {
-	pid_t pid;
-	int infile;
+	pid_t	pid;
+	int		infile;
 
 	if (number == 200)
 		write(1, "works\n", 5);

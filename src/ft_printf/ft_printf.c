@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 09:58:34 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/07/09 20:19:50 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/30 00:34:29 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -44,7 +44,6 @@ int	ft_printf(const char *format, ...)
 	int		len;
 	va_list	ap;
 
-	
 	i = 0;
 	len = 0;
 	va_start(ap, format);

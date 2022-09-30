@@ -6,106 +6,45 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 01:03:37 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/29 05:34:13 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/30 02:36:53 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../include/pipex.h"
 
-int main(int argc, char *argv[], char *envp[])
+void	init_and_process_files(struct files *file, char **argv, int argc,
+		struct counters *counter)
 {
-	int i;
-	files file;
-	paths path;	
-	pid_t pid;
-	char *error;
-	
+	check_arg_count(argc);
+	init_counters(counter, argc);
+	init_files(file);
+	process_files(file, argv, argc);
+}
 
-	if (argc < 5 || argc == 1)
-	{
-		write(1, "Usage: ./pipex [infile] [cmd1] [cmd2] [outfile] \n", 50);
-		exit(1);
-	}
+int	main(int argc, char *argv[], char *envp[])
+{
+	struct counters	counter;
+	struct files	file;
+	struct paths	path;	
+	pid_t			pid;
 
-	i = 2;
-	init_files(&file);
-	file.testfile = open("test", O_RDONLY);
-	file.infile = open(argv[1], O_RDONLY);
-	file.outfile = open(argv[argc - 1], O_WRONLY | O_TRUNC | O_CREAT , 0644);
-	if (file.infile < 0)
-	{
-		error = strerror(errno);
-		ft_printf("%s: %s: %s\n", argv[0], argv[1], error);
-	}
-	else 
-		dup2(file.infile, 0);
-
+	init_and_process_files(&file, argv, argc, &counter);
 	initialize_paths(envp, &path);
-
-	while (i < argc)
+	while (counter.i < argc)
 	{
-		path.args = ft_split(*(argv + i), ' ');
-		path.arg =(*path.functionPointer)(path.split, path.args[0]);
-		if (file.fileds[0] != -1)
+		initialize_args(argv, counter.i, &path);
+		check_pipe_exists(&file);
+		init_pipe(&file);
+		check_path_and_arg(&path, &counter, argv);
+		pid = fork();
+		if (pid == 0)
 		{
-			dup2(file.fileds[0], 0);
-			close(file.fileds[0]);
-			close(file.fileds[1]);
+			check_infile_error(&file, &path, counter.i, argv);
+			check_if_argc_is_last(&counter, &file, &path, argv);
 		}
-//		printf("At i %d, my file.fileds[0] is: %d. \n", i , file.fileds[0]);
-//		printf("At i %d, my file.fileds[1] is: %d. \n", i , file.fileds[1]);
-		initialize_pipe(file.fileds);
-		if ((!path.arg && i != 2 ) && i < argc - 1)
-		{
-			if (!path.arg)
-				ft_printf("%s: %s: command not found\n", argv[0], path.args[0]);
-		}
-		else
-			pid = fork();
-		if (pid == 0) 
-		{
-//			printf("-----------------------------\n");
-//			printf("Argc is: %d.\n", argc);
-//			printf("i is: %d.\n", i);
-//			printf("Argc - 1 is: %d.\n", argc - 1);
-//			printf("arg is: %s.\n", path.args[0]);
-			if ((file.infile < 0 && i == 2) || !path.arg)
-			{
-				if (!path.arg && i < argc -2)
-					ft_printf("%s: %s: command not found\n", argv[0], path.args[0]);
-				close(file.fileds[1]);
-				dup2(file.fileds[0], 0);
-				exit(1);
-			}
-			else if (i == argc - 2)
-			{
-				if (access(argv[argc - 1], W_OK))
-				{
-					error = strerror(errno);
-					ft_printf("%s: %s: %s\n", argv[0], argv[argc - 1], error);
-				}
-				else
-				{
-					dup2(file.outfile, 1);
-					close(file.fileds[1]);
-					close(file.fileds[0]);
-					execve(path.arg, path.args, NULL);
-				}
-			}
-			else
-			{
-				dup2(file.fileds[1], 1);
-				close(file.fileds[0]);
-				execve(path.arg, path.args, NULL);
-			}
-		}
-		i++;
+		counter.i++;
 	}
 	close(file.fileds[0]);
 	close(file.fileds[1]);
-	while ((pid = wait(NULL)) > 0);
-//	printf("infile is: %d\n", file.infile);
-//	printf("outfile is: %d\n", file.outfile);
-//	printf("fileds[0] is: %d\n", file.fileds[0]);
-//	printf("fileds[1] is: %d\n", file.fileds[1]);
+	while ((wait(NULL)) > 0)
+		;
 }
