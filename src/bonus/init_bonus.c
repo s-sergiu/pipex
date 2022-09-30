@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_bonus.c                                      :+:      :+:    :+:   */
+/*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:23:15 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 14:40:11 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/30 18:25:06 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/pipex.h"
@@ -34,15 +34,26 @@ void	initialize_paths(char **envp, struct paths *path)
 
 void	init_counters(struct counters *counter, int argc)
 {
-	counter->i = 2;
+	if (counter->heredoc == 1)
+		counter->i = 3;
+	else
+		counter->i = 2;
 	counter->argc = argc;
 }
 
 void	initialize_args(char **argv, int i, struct paths *path, int argc)
 {
-	if (i != argc - 1)
+	if (argv[i][0] == 0)
 	{
-		path->args = ft_split(*(argv + i), ' ');
-		path->arg = (*path->function_pointer)(path->split, path->args[0]);
+		path->args = 0;
+		path->arg = 0;
+	}
+	else
+	{
+		if (i != argc - 1)
+		{
+			path->args = ft_split(*(argv + i), ' ');
+			path->arg = (*path->function_pointer)(path->split, path->args[0]);
+		}
 	}
 }

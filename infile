@@ -1,0 +1,11 @@
+Makefile
+include
+infile
+obj
+out
+outfile
+pipex
+pipex_bonus
+script.sh
+src
+tests

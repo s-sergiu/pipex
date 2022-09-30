@@ -6,7 +6,7 @@
 #    By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/25 16:42:02 by ssergiu           #+#    #+#              #
-#    Updated: 2022/09/30 14:48:31 by ssergiu          ###   ########.fr        #
+#    Updated: 2022/09/30 18:46:29 by ssergiu          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,9 @@ AR = ar rcs
 RM = rm -f
 
 FILES = pipex \
-		utils \
-		utils_2 \
-		utils_3 \
+		init \
+		input_parser \
+		checkers \
 		free_utils \
 
 BONUS_FILES = pipex_bonus \
@@ -96,5 +96,7 @@ fclean: clean
 	@echo "\033[0;31m"Removing binary..
 	@$(RM) $(NAME) $(BONUS)
 	@echo "\033[0;31m"Done.
+
+re: clean all
 
 .PHONY: bonus all clean fclean re

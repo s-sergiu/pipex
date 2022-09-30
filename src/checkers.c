@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_2.c                                          :+:      :+:    :+:   */
+/*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 02:35:05 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 13:57:53 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/30 18:39:50 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/pipex.h"
@@ -39,7 +39,7 @@ void	check_infile_error(struct files *file,
 			&& counter->i < counter->argc - 1))
 	{
 		if (!(file->infile < 0 && counter->i == 2))
-			ft_printf("%s: %s: xcommand not found\n", argv[0], path->args[0]);
+			ft_printf("%s: %s: command not found\n", argv[0], path->args[0]);
 		close(file->fileds[1]);
 		dup2(file->fileds[0], 0);
 		exit(1);

@@ -6,14 +6,15 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 01:03:37 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 13:36:29 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/30 18:44:46 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/pipex.h"
 
 void	free_bundle(struct paths *path)
 {
-	free_split(path->args);
+	if (path->args)
+		free_split(path->args);
 	if (path->arg != 0)
 		free(path->arg);
 }
@@ -27,6 +28,8 @@ void	close_fds(int fileds1, int fileds2)
 void	child_loop(struct files *file, struct counters *counter,
 		struct paths *path, char **argv)
 {
+	if (path->arg == NULL)
+		ft_printf("%s: : command not found\n", argv[0]);
 	check_infile_error(file, path, counter, argv);
 	check_if_argc_is_last(counter, file, path, argv);
 }
@@ -39,7 +42,6 @@ void	init_and_process_files(struct files *file, char **argv, int argc,
 	init_files(file);
 	process_files(file, argv, argc);
 }
-
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -63,6 +65,7 @@ int	main(int argc, char *argv[], char *envp[])
 			free_bundle(&path);
 	}
 	close_fds(file.fileds[0], file.fileds[1]);
+	close_fds(file.infile, file.outfile);
 	while ((wait(NULL)) > 0)
 		;
 	free_split(path.split);
