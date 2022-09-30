@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 01:03:37 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 13:36:29 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/30 14:43:59 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/pipex.h"
+#include "../../include/pipex.h"
 
 void	free_bundle(struct paths *path)
 {
@@ -37,6 +37,7 @@ void	init_and_process_files(struct files *file, char **argv, int argc,
 	check_arg_count(argc);
 	init_counters(counter, argc);
 	init_files(file);
+	check_for_heredoc(argv, file, counter);
 	process_files(file, argv, argc);
 }
 

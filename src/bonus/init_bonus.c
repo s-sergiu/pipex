@@ -1,21 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 23:23:34 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 09:33:01 by ssergiu          ###   ########.fr       */
+/*   Created: 2022/09/29 23:23:15 by ssergiu           #+#    #+#             */
+/*   Updated: 2022/09/30 14:40:11 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/pipex.h"
-
-void	init_counters(struct counters *counter, int argc)
-{
-	counter->i = 2;
-	counter->argc = argc;
-}
+#include "../../include/pipex.h"
 
 void	init_files(struct files *file)
 {
@@ -26,10 +20,22 @@ void	init_files(struct files *file)
 	file->fileds[0] = -1;
 }
 
+void	init_pipe(struct files *file)
+{
+	if (pipe(file->fileds) == -1)
+		perror("Pipe");
+}
+
 void	initialize_paths(char **envp, struct paths *path)
 {
 	path->function_pointer = &extract_path;
 	path->split = ft_split(envp[find_path(envp)] + 5, ':');
+}
+
+void	init_counters(struct counters *counter, int argc)
+{
+	counter->i = 2;
+	counter->argc = argc;
 }
 
 void	initialize_args(char **argv, int i, struct paths *path, int argc)
@@ -39,10 +45,4 @@ void	initialize_args(char **argv, int i, struct paths *path, int argc)
 		path->args = ft_split(*(argv + i), ' ');
 		path->arg = (*path->function_pointer)(path->split, path->args[0]);
 	}
-}
-
-void	init_pipe(struct files *file)
-{
-	if (pipe(file->fileds) == -1)
-		perror("Pipe");
 }

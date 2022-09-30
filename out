@@ -1,9 +1,0 @@
-Makefile
-include
-infile
-obj
-out
-pipex
-script.sh
-src
-tests

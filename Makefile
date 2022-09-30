@@ -6,12 +6,11 @@
 #    By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/25 16:42:02 by ssergiu           #+#    #+#              #
-#    Updated: 2022/09/30 02:45:09 by ssergiu          ###   ########.fr        #
+#    Updated: 2022/09/30 14:48:31 by ssergiu          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
-TEST = test
 BONUS = pipex_bonus
 
 CC = cc
@@ -23,38 +22,35 @@ FILES = pipex \
 		utils \
 		utils_2 \
 		utils_3 \
+		free_utils \
 
 BONUS_FILES = pipex_bonus \
-			  utils_bonus \
+			  input_parser_bonus \
+			  checkers_bonus \
+			  free_utils_bonus \
+			  init_bonus \
+			  heredoc \
 
 GNL_FILES= get_next_line \
 		   get_next_line_utils \
 
-TEST_OBJ = ./obj/test.o
-TEST_DIR = ./tests
 LIBFT_OBJ = ./obj/libft.o
 LIBFT_DIR = ./src/libft
 PRINTF_OBJ= ./obj/libftprintf.o
 PRINTF_DIR = ./src/ft_printf
 GNL_DIR = ./src/gnl
 GNL_OBJ = ./obj/gnl.o
+BONUS_DIR = ./obj/bonus/
 OBJS_DIR = ./obj/
 OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
-BONUS_OBJ = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(BONUS_FILES)))
+BONUS_OBJ = $(addprefix $(BONUS_DIR), $(addsuffix .o, $(BONUS_FILES)))
 ALL_OBJS = $(PRINTF_OBJ) \
 		   $(LIBFT_OBJ) \
 		   $(OBJS) \
-		   $(TEST_OBJ) \
 		   $(BONUS_OBJ) \
 		   $(GNL_OBJ) \
 
 all: $(NAME)
-
-
-$(TEST): $(TEST_OBJ) $(LIBFT_OBJ) $(PRINTF_OBJ)
-	@echo "\033[0;34m"Building tests..
-	@$(CC) $(FLAGS) $(TEST_OBJ) $(LIBFT_OBJ) $(PRINTF_OBJ) -o $@
-	@echo "\033[0;34m"Done.
 
 $(BONUS): $(BONUS_OBJ) $(LIBFT_OBJ) $(PRINTF_OBJ) $(GNL_OBJ)
 	@echo "\033[1;35m"Building bonus..
@@ -67,13 +63,10 @@ $(GNL_OBJ): $(GNL_DIR)/*c
 	@cp $(GNL_DIR)/gnl.a ./obj/gnl.o
 	@make fclean -C $(GNL_DIR)
 
-$(TEST_OBJ): $(TEST_DIR)/*.c
-	@$(CC) $(FLAGS) -c -o $@ $^
-
-$(NAME): $(OBJS) $(LIBFT_OBJ) $(PRINTF_OBJ)
+$(NAME): $(OBJS) $(LIBFT_OBJ) $(PRINTF_OBJ) $(GNL_OBJ)
 	@echo "\033[0;32m"Building pipex..
 	@echo "\033[0;32m"Done. 
-	@$(CC) $(FLAGS) $(OBJS) $(LIBFT_OBJ) $(PRINTF_OBJ) -o $@
+	@$(CC) $(FLAGS) $(OBJS) $(LIBFT_OBJ) $(PRINTF_OBJ) $(GNL_OBJ) -o $@
 
 $(LIBFT_OBJ): $(LIBFT_DIR)/*c
 	@echo "\033[0;32m"Building libft object files..
@@ -87,6 +80,9 @@ $(PRINTF_OBJ): $(PRINTF_DIR)/*c
 	@cp $(PRINTF_DIR)/libftprintf.a ./obj/libftprintf.o
 	@make fclean -C $(PRINTF_DIR)
 
+./obj/bonus/%.o:./src/bonus/%.c
+	@$(CC) $(CFLAGS) -c -o $@ $^
+
 ./obj/%.o:./src/%.c
 	@$(CC) $(CFLAGS) -c -o $@ $^
 
@@ -98,7 +94,7 @@ clean:
 
 fclean: clean
 	@echo "\033[0;31m"Removing binary..
-	@$(RM) $(NAME) $(TEST) $(BONUS)
+	@$(RM) $(NAME) $(BONUS)
 	@echo "\033[0;31m"Done.
 
 .PHONY: bonus all clean fclean re

@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_2.c                                          :+:      :+:    :+:   */
+/*   checkers_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 02:35:05 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 13:57:53 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/30 14:46:42 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/pipex.h"
+#include "../../include/pipex.h"
 
 void	check_path_and_arg(struct paths *path,
 		struct counters *counter, char **argv)
@@ -18,14 +18,14 @@ void	check_path_and_arg(struct paths *path,
 	{
 		if (!path->arg)
 			ft_printf("%s: %s: command not found\n", argv[0], path->args[0]);
-		if (counter->i == counter->argc -1)
+		if (counter->i++ == counter->argc -1)
 			exit(1);
 	}
 }
 
 void	check_arg_count(int argc)
 {
-	if (argc < 5 || argc == 1 || argc > 5)
+	if (argc < 5 || argc == 1)
 	{
 		write(1, "Usage: ./pipex [infile] [cmd1] [cmd2] [outfile] \n", 50);
 		exit(1);
@@ -39,7 +39,7 @@ void	check_infile_error(struct files *file,
 			&& counter->i < counter->argc - 1))
 	{
 		if (!(file->infile < 0 && counter->i == 2))
-			ft_printf("%s: %s: xcommand not found\n", argv[0], path->args[0]);
+			ft_printf("%s: %s: command not found\n", argv[0], path->args[0]);
 		close(file->fileds[1]);
 		dup2(file->fileds[0], 0);
 		exit(1);

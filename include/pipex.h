@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:45:35 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 02:46:01 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/30 12:19:57 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,19 @@ typedef struct paths{
 	char	*(*function_pointer)(char **, char *);
 }	t_paths;
 
+void		free_split(char **split);
+void		free_all(struct paths *path);
 void		ft_putstr_fd(char *s, int fd);
 size_t		ft_strlen(const char *str);
 int			has_newline(char *buffer);
 int			get_newline_pos(char *buffer);
 char		*ft_strdup(const char *s1);
+char		*pipex_ft_strjoin(char const *s1, char const *s2, int flag);
 char		*gnl_ft_strjoin(char const *s1, char const *s2, int flag);
 char		*get_next_line(int fd);
 void		here_function(char *string, int fileds[]);
 void		init_files(struct files *file);
 void		process_files(struct files *file, char **argv, int argc);
-void		initialize_pipe(int *fileds);
 char		*extract_path(char **string, char *cmd);
 int			find_path(char **string);
 void		initialize_paths(char **envp, struct paths *path);
@@ -63,7 +65,8 @@ int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strjoin(char const *s1, char const *s2);
 void		check_arg_count(int argc);
 void		init_counters(struct counters *counter, int argc);
-void		initialize_args(char **argv, int counter, struct paths *path);
+void		initialize_args(char **argv, int counter,
+				struct paths *path, int argc);
 void		check_pipe_exists(struct files *file);
 void		init_pipe(struct files *file);
 void		check_path_and_arg(struct paths *path,
@@ -71,6 +74,15 @@ void		check_path_and_arg(struct paths *path,
 void		check_if_argc_is_last(struct counters *counter,
 				struct files *file, struct paths *path, char **argv);
 void		check_infile_error(struct files *file,
-				struct paths *path, int i, char **argv);
+				struct paths *path, struct counters *counter, char **argv);
+void		child_loop(struct files *file, struct counters *counter,
+				struct paths *path, char **argv);
+void		close_fds(int fileds1, int fileds2);
+void		free_bundle(struct paths *path);
+void		init_and_process_files(struct files *file, char **argv, int argc,
+				struct counters *counter);
+void		here_function(char *string, int fileds[]);
+void		check_for_heredoc(char **argv, struct files *file,
+				struct counters *counter);
 
 #endif
