@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 01:03:37 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 19:46:40 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/30 20:20:04 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/pipex.h"
@@ -28,7 +28,7 @@ void	close_fds(int fileds1, int fileds2)
 void	child_loop(struct files *file, struct counters *counter,
 		struct paths *path, char **argv)
 {
-	if (path->arg == NULL)
+	if (path->arg[0] == 0)
 		ft_printf("%s: : command not found\n", argv[0]);
 	if (!(counter->heredoc == 1))
 		check_infile_error(file, path, counter, argv);

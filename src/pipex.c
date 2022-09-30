@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 01:03:37 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 18:44:46 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/30 20:20:15 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/pipex.h"
@@ -37,7 +37,7 @@ void	child_loop(struct files *file, struct counters *counter,
 void	init_and_process_files(struct files *file, char **argv, int argc,
 		struct counters *counter)
 {
-	check_arg_count(argc);
+	check_arg_count(argc, argv);
 	init_counters(counter, argc);
 	init_files(file);
 	process_files(file, argv, argc);

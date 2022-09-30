@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 02:35:05 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 18:39:50 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/09/30 20:21:54 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/pipex.h"
@@ -23,9 +23,9 @@ void	check_path_and_arg(struct paths *path,
 	}
 }
 
-void	check_arg_count(int argc)
+void	check_arg_count(int argc, char **argv)
 {
-	if (argc < 5 || argc == 1 || argc > 5)
+	if (argc < 5 || argc == 1 || argc > 5 || argv)
 	{
 		write(1, "Usage: ./pipex [infile] [cmd1] [cmd2] [outfile] \n", 50);
 		exit(1);
