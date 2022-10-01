@@ -6,10 +6,10 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:23:34 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 18:36:27 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/01 20:25:52 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/pipex.h"
+#include "../include/pipex_bonus.h"
 
 void	init_counters(struct counters *counter, int argc)
 {

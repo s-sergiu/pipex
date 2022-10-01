@@ -6,10 +6,10 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 01:03:37 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 20:20:15 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/01 20:27:44 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/pipex.h"
+#include "../include/pipex_bonus.h"
 
 void	free_bundle(struct paths *path)
 {
@@ -37,7 +37,7 @@ void	child_loop(struct files *file, struct counters *counter,
 void	init_and_process_files(struct files *file, char **argv, int argc,
 		struct counters *counter)
 {
-	check_arg_count(argc, argv);
+	check_arg_count(argc);
 	init_counters(counter, argc);
 	init_files(file);
 	process_files(file, argv, argc);

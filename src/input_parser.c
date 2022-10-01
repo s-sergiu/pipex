@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_3.c                                          :+:      :+:    :+:   */
+/*   input_parser.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 02:36:48 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 12:19:21 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/01 20:26:04 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/pipex.h"
+#include "../include/pipex_bonus.h"
 
 void	process_files(struct files *file, char **argv, int argc)
 {
