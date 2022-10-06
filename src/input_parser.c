@@ -6,10 +6,10 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 02:36:48 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/01 20:26:04 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/06 15:02:35 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/pipex_bonus.h"
+#include "../include/pipex.h"
 
 void	process_files(struct files *file, char **argv, int argc)
 {
@@ -20,7 +20,7 @@ void	process_files(struct files *file, char **argv, int argc)
 	if (file->infile < 0)
 	{
 		error = strerror(errno);
-		ft_printf("%s: %s: %s\n", argv[0], argv[1], error);
+		ft_printf("\nprocessfiles\n%s: %s: %s\n", argv[0], argv[1], error);
 	}
 	else
 		dup2(file->infile, 0);

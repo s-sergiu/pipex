@@ -6,18 +6,18 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 02:35:05 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/01 20:23:02 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/06 15:59:12 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/pipex_bonus.h"
+#include "../include/pipex.h"
 
 void	check_path_and_arg(struct paths *path,
 		struct counters *counter, char **argv)
 {
 	if ((!path->arg && counter->i != 2) && counter->i < counter->argc - 2)
 	{
-		if (!path->arg)
-			ft_printf("%s: %s: command not found\n", argv[0], path->args[0]);
+		if (!path->arg || argv[counter->i][0] == 0)
+			ft_printf("\ncheckpathandarg\n%s: %s: command not found\n", argv[0], path->args[0]);
 		if (counter->i == counter->argc -1)
 			exit(1);
 	}
@@ -33,13 +33,13 @@ void	check_arg_count(int argc)
 }
 
 void	check_infile_error(struct files *file,
-		struct paths *path, struct counters *counter, char **argv)
+		struct paths *path, struct counters *counter)
 {
 	if ((file->infile < 0 && counter->i == 2) || (!path->arg
-			&& counter->i < counter->argc - 1))
+			&& counter->i < counter->argc - 2))
 	{
-		if (!(file->infile < 0 && counter->i == 2))
-			ft_printf("%s: %s: command not found\n", argv[0], path->args[0]);
+	ft_printf("argc is at %s asdasdsa %s", 
+			path->arg, path->args[1]);
 		close(file->fileds[1]);
 		dup2(file->fileds[0], 0);
 		exit(1);
@@ -61,12 +61,14 @@ void	check_if_argc_is_last(struct counters *counter,
 {
 	char	*error;
 
+	//ft_printf("argc is at %d(from %d) with command %s\n", 
+	//		counter->i, counter->argc, argv[counter->i]);
 	if (counter->i == counter->argc - 2)
 	{
 		if (access(argv[counter->argc - 1], W_OK))
 		{
 			error = strerror(errno);
-			ft_printf("%s: %s: %s\n", argv[0], argv[counter->argc - 1], error);
+			ft_printf("\nargcislast\n%s: %s: %s\n", argv[0], argv[counter->argc - 1], error);
 			exit(1);
 		}
 		else
@@ -80,6 +82,7 @@ void	check_if_argc_is_last(struct counters *counter,
 	else
 	{
 		dup2(file->fileds[1], 1);
+		close(file->fileds[1]);
 		close(file->fileds[0]);
 		execve(path->arg, path->args, NULL);
 	}

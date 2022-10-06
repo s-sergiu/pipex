@@ -6,10 +6,10 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 01:03:37 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 20:20:04 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/06 19:13:39 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../include/pipex.h"
+#include "../../include/pipex_bonus.h"
 
 void	free_bundle(struct paths *path)
 {
@@ -70,9 +70,10 @@ int	main(int argc, char *argv[], char *envp[])
 		if (counter.i++ != argc - 1)
 			free_bundle(&path);
 	}
+	while ((waitpid(pid, 0, 0)) > 0)
+		;
 	close_fds(file.fileds[0], file.fileds[1]);
 	close_fds(file.infile, file.outfile);
-	while ((wait(NULL)) > 0)
-		;
 	free_split(path.split);
+	while(1);
 }

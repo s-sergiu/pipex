@@ -6,10 +6,10 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:23:15 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 18:25:06 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/06 16:19:40 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../include/pipex.h"
+#include "../../include/pipex_bonus.h"
 
 void	init_files(struct files *file)
 {

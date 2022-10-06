@@ -6,10 +6,10 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 11:15:54 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 16:50:46 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/06 18:42:40 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../include/pipex.h"
+#include "../../include/pipex_bonus.h"
 
 void	check_for_heredoc(char **argv, struct files *file,
 			struct counters *counter)
@@ -34,12 +34,14 @@ void	here_function(char *string, int fileds[])
 	int		len;
 
 	len = ft_strlen(string);
+	write(1, "> ", 2);
 	while (1)
 	{
 		line = get_next_line(0);
 		dup2(fileds[1], 1);
 		if (!ft_strncmp(line, string, len) && line[len + 1] == 0)
 			exit(0);
+		write(0, "> ", 2);
 		ft_putstr_fd(line, fileds[1]);
 	}
 }

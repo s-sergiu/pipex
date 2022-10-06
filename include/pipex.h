@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:45:35 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 20:20:09 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/06 15:09:20 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char		**ft_split(char const *s, char c);
 int			ft_printf(const char *format, ...);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strjoin(char const *s1, char const *s2);
-void		check_arg_count(int argc, char **argv);
+void		check_arg_count(int argc);
 void		init_counters(struct counters *counter, int argc);
 void		initialize_args(char **argv, int counter,
 				struct paths *path, int argc);
@@ -75,7 +75,7 @@ void		check_path_and_arg(struct paths *path,
 void		check_if_argc_is_last(struct counters *counter,
 				struct files *file, struct paths *path, char **argv);
 void		check_infile_error(struct files *file,
-				struct paths *path, struct counters *counter, char **argv);
+				struct paths *path, struct counters *counter);
 void		child_loop(struct files *file, struct counters *counter,
 				struct paths *path, char **argv);
 void		close_fds(int fileds1, int fileds2);

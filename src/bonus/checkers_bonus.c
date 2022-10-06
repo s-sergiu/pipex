@@ -6,10 +6,10 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 02:35:05 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 20:16:26 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/06 18:29:46 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../include/pipex.h"
+#include "../../include/pipex_bonus.h"
 
 void	check_path_and_arg(struct paths *path,
 		struct counters *counter, char **argv)
@@ -63,7 +63,7 @@ void	check_infile_error(struct files *file,
 		if (!(file->infile < 0 && counter->i == first_command))
 			ft_printf("%s: %s: command not found\n", argv[0], path->args[0]);
 		close(file->fileds[1]);
-		dup2(file->fileds[0], 0);
+		close(file->fileds[0]);
 		exit(1);
 	}
 }

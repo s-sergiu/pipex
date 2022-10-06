@@ -6,10 +6,10 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 03:24:41 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/01 20:25:37 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/06 13:29:54 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/pipex_bonus.h"
+#include "../include/pipex.h"
 
 void	free_split(char **split)
 {

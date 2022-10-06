@@ -6,10 +6,10 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 01:03:37 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/01 20:27:44 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/06 17:26:17 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/pipex_bonus.h"
+#include "../include/pipex.h"
 
 void	free_bundle(struct paths *path)
 {
@@ -28,9 +28,7 @@ void	close_fds(int fileds1, int fileds2)
 void	child_loop(struct files *file, struct counters *counter,
 		struct paths *path, char **argv)
 {
-	if (path->arg == NULL)
-		ft_printf("%s: : command not found\n", argv[0]);
-	check_infile_error(file, path, counter, argv);
+	check_infile_error(file, path, counter);
 	check_if_argc_is_last(counter, file, path, argv);
 }
 

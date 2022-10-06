@@ -6,10 +6,10 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 02:36:48 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/09/30 19:05:17 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/06 18:51:46 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../include/pipex.h"
+#include "../../include/pipex_bonus.h"
 
 void	process_files(struct files *file, char **argv, int argc)
 {
