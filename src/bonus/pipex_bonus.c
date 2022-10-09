@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 01:03:37 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/06 19:13:39 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/07 23:29:39 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/pipex_bonus.h"
@@ -75,5 +75,5 @@ int	main(int argc, char *argv[], char *envp[])
 	close_fds(file.fileds[0], file.fileds[1]);
 	close_fds(file.infile, file.outfile);
 	free_split(path.split);
-	while(1);
+	system("leaks pipex_bonus");
 }

@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 02:36:48 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/06 18:51:46 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/07 22:30:32 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/pipex_bonus.h"
@@ -23,7 +23,10 @@ void	process_files(struct files *file, char **argv, int argc)
 		ft_printf("%s: %s: %s\n", argv[0], argv[1], error);
 	}
 	else
+	{
 		dup2(file->infile, 0);
+		close(file->infile);
+	}
 }
 
 int	find_path(char **string)

@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 02:35:05 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/06 15:59:12 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/09 02:47:17 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/pipex.h"
@@ -14,17 +14,19 @@
 void	check_path_and_arg(struct paths *path,
 		struct counters *counter, char **argv)
 {
-	if ((!path->arg && counter->i != 2) && counter->i < counter->argc - 2)
+	if (!(access(argv[counter->argc - 1], W_OK)))
 	{
-		if (!path->arg || argv[counter->i][0] == 0)
-			ft_printf("\ncheckpathandarg\n%s: %s: command not found\n", argv[0], path->args[0]);
-		if (counter->i == counter->argc -1)
-			exit(1);
+		if (!path->arg && counter->i == counter->argc - 2)
+			ft_printf("%s: %s: command not found\n", argv[0], path->args[0]);
+	}
+	if (!(access(argv[1], W_OK)))
+	{
+		if (!path->arg && counter->i == 2)
+			ft_printf("%s: %s: command not found\n", argv[0], path->args[0]);
 	}
 }
 
-void	check_arg_count(int argc)
-{
+void	check_arg_count(int argc) {
 	if (argc < 5 || argc > 5)
 	{
 		write(1, "Usage: ./pipex [infile] [cmd1] [cmd2] [outfile] \n", 50);
@@ -38,8 +40,6 @@ void	check_infile_error(struct files *file,
 	if ((file->infile < 0 && counter->i == 2) || (!path->arg
 			&& counter->i < counter->argc - 2))
 	{
-	ft_printf("argc is at %s asdasdsa %s", 
-			path->arg, path->args[1]);
 		close(file->fileds[1]);
 		dup2(file->fileds[0], 0);
 		exit(1);
@@ -61,14 +61,12 @@ void	check_if_argc_is_last(struct counters *counter,
 {
 	char	*error;
 
-	//ft_printf("argc is at %d(from %d) with command %s\n", 
-	//		counter->i, counter->argc, argv[counter->i]);
 	if (counter->i == counter->argc - 2)
 	{
 		if (access(argv[counter->argc - 1], W_OK))
 		{
 			error = strerror(errno);
-			ft_printf("\nargcislast\n%s: %s: %s\n", argv[0], argv[counter->argc - 1], error);
+			ft_printf("%s: %s: %s\n", argv[0], argv[counter->argc - 1], error);
 			exit(1);
 		}
 		else

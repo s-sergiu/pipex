@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 02:35:05 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/06 18:29:46 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/07 23:27:32 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/pipex_bonus.h"
@@ -22,9 +22,9 @@ void	check_path_and_arg(struct paths *path,
 	if ((!path->arg && counter->i != first_command)
 		&& counter->i < counter->argc - first_command)
 	{
-		if (!path->arg)
-			ft_printf("%s: %s: command not found\n", argv[0], path->args[0]);
+		ft_printf("%s: %s: command not found\n", argv[0], path->args[0]);
 		if (counter->i++ == counter->argc -1)
+			//this for the last command;
 			exit(1);
 	}
 }
@@ -64,6 +64,7 @@ void	check_infile_error(struct files *file,
 			ft_printf("%s: %s: command not found\n", argv[0], path->args[0]);
 		close(file->fileds[1]);
 		close(file->fileds[0]);
+		close(file->outfile);
 		exit(1);
 	}
 }
@@ -76,8 +77,7 @@ void	check_pipe_exists(struct files *file)
 		close(file->fileds[0]);
 		close(file->fileds[1]);
 	}
-}
-
+} 
 void	check_if_argc_is_last(struct counters *counter,
 		struct files *file, struct paths *path, char **argv)
 {
@@ -89,13 +89,17 @@ void	check_if_argc_is_last(struct counters *counter,
 		{
 			error = strerror(errno);
 			ft_printf("%s: %s: %s\n", argv[0], argv[counter->argc - 1], error);
+			close(file->outfile);
+			free_split(path->split);
 			exit(1);
 		}
 		else
 		{
 			dup2(file->outfile, 1);
+			close(file->outfile);
 			close(file->fileds[0]);
 			close(file->fileds[1]);
+			free_split(path->split);
 			execve(path->arg, path->args, NULL);
 		}
 	}
@@ -103,6 +107,9 @@ void	check_if_argc_is_last(struct counters *counter,
 	{
 		dup2(file->fileds[1], 1);
 		close(file->fileds[0]);
+		close(file->fileds[1]);
+		close(file->outfile);
+		free_split(path->split);
 		execve(path->arg, path->args, NULL);
 	}
 }

@@ -6,14 +6,13 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:23:15 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/06 16:19:40 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/07 22:25:30 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/pipex_bonus.h"
 
 void	init_files(struct files *file)
 {
-	file->testfile = -1;
 	file->infile = -1;
 	file->outfile = -1;
 	file->fileds[1] = -1;

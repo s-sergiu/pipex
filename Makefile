@@ -6,7 +6,7 @@
 #    By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/25 16:42:02 by ssergiu           #+#    #+#              #
-#    Updated: 2022/09/30 19:59:46 by ssergiu          ###   ########.fr        #
+#    Updated: 2022/10/09 02:09:44 by ssergiu          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = pipex
 BONUS = pipex_bonus
 
 CC = cc
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror 
 AR = ar rcs
 RM = rm -f
 
@@ -66,6 +66,12 @@ $(GNL_OBJ): $(GNL_DIR)/*c
 $(NAME): $(OBJS) $(LIBFT_OBJ) $(PRINTF_OBJ) $(GNL_OBJ)
 	@echo "\033[0;32m"Building pipex..
 	@echo "\033[0;32m"Done. 
+	@echo "██████╗ ██╗██████╗ ███████╗██╗  ██╗"
+	@echo "██╔══██╗██║██╔══██╗██╔════╝╚██╗██╔╝"
+	@echo "██████╔╝██║██████╔╝█████╗   ╚███╔╝ "
+	@echo "██╔═══╝ ██║██╔═══╝ ██╔══╝   ██╔██╗ "
+	@echo "██║     ██║██║     ███████╗██╔╝ ██╗"
+	@echo "╚═╝     ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝"
 	@$(CC) $(FLAGS) $(OBJS) $(LIBFT_OBJ) $(PRINTF_OBJ) $(GNL_OBJ) -o $@
 
 $(LIBFT_OBJ): $(LIBFT_DIR)/*c
@@ -88,7 +94,7 @@ $(PRINTF_OBJ): $(PRINTF_DIR)/*c
 
 clean:
 	@echo "\033[0;31m"Removing printf object files..
-	@echo "\033[0;31m"Removing libft bject files..
+	@echo "\033[0;31m"Removing libft object files..
 	@$(RM) $(ALL_OBJS) 
 	@echo "\033[0;31m"Done.
 

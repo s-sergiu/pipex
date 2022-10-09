@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:23:34 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/06 13:30:01 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/08 22:03:26 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/pipex.h"
@@ -32,18 +32,19 @@ void	initialize_paths(char **envp, struct paths *path)
 	path->split = ft_split(envp[find_path(envp)] + 5, ':');
 }
 
-void	initialize_args(char **argv, int i, struct paths *path, int argc)
+void	initialize_args(char **argv, struct counters *counter,
+	   	struct paths *path)
 {
-	if (argv[i][0] == 0)
+	if (argv[counter->i][0] == 0)
 	{
 		path->args = 0;
 		path->arg = 0;
 	}
 	else
 	{
-		if (i != argc - 1)
+		if (counter->i != counter->argc - 1)
 		{
-			path->args = ft_split(*(argv + i), ' ');
+			path->args = ft_split(*(argv + counter->i), ' ');
 			path->arg = (*path->function_pointer)(path->split, path->args[0]);
 		}
 	}

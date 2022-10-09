@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 01:03:37 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/06 17:26:17 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/09 02:47:11 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/pipex.h"
@@ -50,9 +50,9 @@ int	main(int argc, char *argv[], char *envp[])
 
 	init_and_process_files(&file, argv, argc, &counter);
 	initialize_paths(envp, &path);
-	while (counter.i < argc)
+	while (counter.i < argc - 1)
 	{
-		initialize_args(argv, counter.i, &path, argc);
+		initialize_args(argv, &counter, &path);
 		check_path_and_arg(&path, &counter, argv);
 		check_pipe_exists(&file);
 		init_pipe(&file);
@@ -62,9 +62,9 @@ int	main(int argc, char *argv[], char *envp[])
 		if (counter.i++ != argc - 1)
 			free_bundle(&path);
 	}
+	while ((waitpid(pid, 0, 0)) > 0)
+		;
 	close_fds(file.fileds[0], file.fileds[1]);
 	close_fds(file.infile, file.outfile);
-	while ((wait(NULL)) > 0)
-		;
 	free_split(path.split);
 }
