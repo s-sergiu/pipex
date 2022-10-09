@@ -71,7 +71,7 @@ $(GNL_OBJ): $(GNL_DIR)/*c
 	@cp $(GNL_DIR)/gnl.a ./obj/gnl.o
 	@make fclean -C $(GNL_DIR)
 
-$(NAME): $(OBJS) $(LIBFT_OBJ) $(PRINTF_OBJ) $(GNL_OBJ)
+$(NAME): $(OBJS) $(LIBFT_OBJ) $(PRINTF_OBJ) $(GNL_OBJ) include/pipex.h
 	@echo "\033[0;32m"Building pipex..
 	@echo "\033[0;32m"Done. 
 	@echo "██████╗░██╗██████╗░███████╗██╗░░██╗"

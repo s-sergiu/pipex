@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:45:35 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/09 02:03:25 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/09 19:45:39 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,14 @@ typedef struct files{
 	int	outfile;
 	int	testfile;
 	int	fileds[2];
+	int	status;
 }	t_files;
 
 typedef struct paths{
 	char	**args;
 	char	**split;
 	char	*arg;
+	char	*envp;
 	char	*(*function_pointer)(char **, char *);
 }	t_paths;
 

@@ -1,1 +1,8 @@
-si
+Makefile
+include
+infile
+obj
+out
+outfile
+pipex
+src
