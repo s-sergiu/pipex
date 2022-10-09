@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:23:34 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/08 22:03:26 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/09 06:54:34 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/pipex.h"
@@ -33,7 +33,7 @@ void	initialize_paths(char **envp, struct paths *path)
 }
 
 void	initialize_args(char **argv, struct counters *counter,
-	   	struct paths *path)
+			struct paths *path)
 {
 	if (argv[counter->i][0] == 0)
 	{
@@ -53,5 +53,5 @@ void	initialize_args(char **argv, struct counters *counter,
 void	init_pipe(struct files *file)
 {
 	if (pipe(file->fileds) == -1)
-		perror("Pipe");
+		perror("pipe error: ");
 }

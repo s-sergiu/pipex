@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 01:03:37 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/09 02:47:11 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/09 07:00:54 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/pipex.h"
@@ -15,14 +15,16 @@ void	free_bundle(struct paths *path)
 {
 	if (path->args)
 		free_split(path->args);
-	if (path->arg != 0)
+	if (path->arg)
 		free(path->arg);
 }
 
 void	close_fds(int fileds1, int fileds2)
 {
-	close(fileds1);
-	close(fileds2);
+	if (fileds1 != -1)
+		close(fileds1);
+	if (fileds2 != -1)
+		close(fileds2);
 }
 
 void	child_loop(struct files *file, struct counters *counter,
