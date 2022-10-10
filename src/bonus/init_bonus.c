@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:23:15 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/07 22:25:30 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/09 23:20:22 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/pipex_bonus.h"
@@ -17,6 +17,7 @@ void	init_files(struct files *file)
 	file->outfile = -1;
 	file->fileds[1] = -1;
 	file->fileds[0] = -1;
+	file->status = -1;
 }
 
 void	init_pipe(struct files *file)

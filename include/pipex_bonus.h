@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:45:35 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/09 06:53:01 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/10 02:41:52 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct files{
 	int	outfile;
 	int	testfile;
 	int	fileds[2];
+	int status;
 }	t_files;
 
 typedef struct paths{
@@ -56,7 +57,8 @@ char		*gnl_ft_strjoin(char const *s1, char const *s2, int flag);
 char		*get_next_line(int fd);
 void		here_function(char *string, int fileds[]);
 void		init_files(struct files *file);
-void		process_files(struct files *file, char **argv, int argc);
+void		process_files(struct files *file, struct counters *counter,
+				char **argv, int argc);
 char		*extract_path(char **string, char *cmd);
 int			find_path(char **string);
 void		initialize_paths(char **envp, struct paths *path);
@@ -75,7 +77,7 @@ void		check_path_and_arg(struct paths *path,
 void		check_if_argc_is_last(struct counters *counter,
 				struct files *file, struct paths *path, char **argv);
 void		check_infile_error(struct files *file,
-				struct paths *path, struct counters *counter, char **argv);
+				struct paths *path, struct counters *counter);
 void		child_loop(struct files *file, struct counters *counter,
 				struct paths *path, char **argv);
 void		close_fds(int fileds1, int fileds2);

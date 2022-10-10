@@ -6,26 +6,35 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 02:36:48 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/07 22:30:32 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/10 02:46:35 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/pipex_bonus.h"
 
-void	process_files(struct files *file, char **argv, int argc)
+void	process_files(struct files *file, struct counters *counter,
+			char **argv, int argc)
 {
 	char	*error;
 
-	file->infile = open(argv[1], O_RDONLY);
-	file->outfile = open(argv[argc - 1], O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	if (file->infile < 0)
+	if (counter->heredoc == 1)
 	{
-		error = strerror(errno);
-		ft_printf("%s: %s: %s\n", argv[0], argv[1], error);
+		file->outfile = open(argv[argc - 1],
+				O_WRONLY | O_APPEND | O_CREAT, 0644);
 	}
 	else
 	{
-		dup2(file->infile, 0);
-		close(file->infile);
+		file->infile = open(argv[1], O_RDONLY);
+		file->outfile = open(argv[argc - 1], O_WRONLY | O_TRUNC | O_CREAT, 0644);
+		if (file->infile < 0)
+		{
+			error = strerror(errno);
+			ft_printf("%s: %s: %s\n", argv[0], argv[1], error);
+		}
+		else
+		{
+			dup2(file->infile, 0);
+			close(file->infile);
+		}
 	}
 }
 

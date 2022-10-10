@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 01:03:37 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/09 16:55:42 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/10 02:49:30 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/pipex_bonus.h"
@@ -15,23 +15,23 @@ void	free_bundle(struct paths *path)
 {
 	if (path->args)
 		free_split(path->args);
-	if (path->arg != 0)
+	if (path->arg)
 		free(path->arg);
 }
 
 void	close_fds(int fileds1, int fileds2)
 {
-	close(fileds1);
-	close(fileds2);
+	if (fileds1 != -1)
+		close(fileds1);
+	if (fileds2 != -1)
+		close(fileds2);
 }
 
 void	child_loop(struct files *file, struct counters *counter,
 		struct paths *path, char **argv)
 {
-	if (path->arg[0] == 0)
-		ft_printf("%s: : command not found\n", argv[0]);
 	if (!(counter->heredoc == 1))
-		check_infile_error(file, path, counter, argv);
+		check_infile_error(file, path, counter);
 	check_if_argc_is_last(counter, file, path, argv);
 }
 
@@ -42,11 +42,7 @@ void	init_and_process_files(struct files *file, char **argv, int argc,
 	init_counters(counter, argc);
 	init_files(file);
 	check_for_heredoc(argv, file, counter);
-	if (counter->heredoc == 1)
-		file->outfile = open(argv[argc - 1],
-				O_WRONLY | O_APPEND | O_CREAT, 0644);
-	else
-		process_files(file, argv, argc);
+	process_files(file, counter, argv, argc);
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -70,9 +66,10 @@ int	main(int argc, char *argv[], char *envp[])
 		if (counter.i++ != argc - 1)
 			free_bundle(&path);
 	}
-	while ((waitpid(pid, 0, 0)) > 0)
+	while (waitpid(-1, &file.status, 0) != -1)
 		;
 	close_fds(file.fileds[0], file.fileds[1]);
 	close_fds(file.infile, file.outfile);
 	free_split(path.split);
+	return (WEXITSTATUS(file.status));
 }
