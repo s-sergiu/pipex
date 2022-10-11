@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 01:03:37 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/10 02:49:30 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/11 16:34:52 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/pipex_bonus.h"
@@ -52,6 +52,7 @@ int	main(int argc, char *argv[], char *envp[])
 	struct paths	path;	
 	pid_t			pid;
 
+	counter.envp = envp;
 	init_and_process_files(&file, argv, argc, &counter);
 	initialize_paths(envp, &path);
 	while (counter.i < argc - 1)

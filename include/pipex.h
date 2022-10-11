@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:45:35 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/09 19:45:39 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/11 16:32:53 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 typedef struct counters{
 	int	i;
 	int	argc;
+	char **envp;
 	int	heredoc;
 }	t_counters;
 
@@ -58,7 +59,7 @@ char		*gnl_ft_strjoin(char const *s1, char const *s2, int flag);
 char		*get_next_line(int fd);
 void		here_function(char *string, int fileds[]);
 void		init_files(struct files *file);
-void		process_files(struct files *file, char **argv, int argc);
+void		process_files(struct files *file, char **argv);
 char		*extract_path(char **string, char *cmd);
 int			find_path(char **string);
 void		initialize_paths(char **envp, struct paths *path);
@@ -87,5 +88,11 @@ void		init_and_process_files(struct files *file, char **argv, int argc,
 void		here_function(char *string, int fileds[]);
 void		check_for_heredoc(char **argv, struct files *file,
 				struct counters *counter);
+void		check_if_argc_is_last(struct counters *counter,
+				struct files *file, struct paths *path, char **argv);
+void		check_if_argc_is_last(struct counters *counter,
+				struct files *file, struct paths *path, char **argv);
+void		handle_outfile(struct counters *counter, struct paths *path,
+				struct files *file, char **argv);
 
 #endif

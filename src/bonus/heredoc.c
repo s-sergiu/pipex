@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 11:15:54 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/06 18:42:40 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/11 15:59:57 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/pipex_bonus.h"
@@ -16,6 +16,7 @@ void	check_for_heredoc(char **argv, struct files *file,
 {
 	pid_t	pid;
 
+	counter->heredoc = 0;
 	if (!ft_strncmp(argv[1], "here_doc", 8))
 	{
 		init_pipe(file);

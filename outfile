@@ -1,4 +1,0 @@
-PING google.ro (142.250.185.131): 56 data bytes
-64 bytes from 142.250.185.131: icmp_seq=0 ttl=119 time=5.769 ms
-64 bytes from 142.250.185.131: icmp_seq=1 ttl=119 time=5.661 ms
---- google.ro ping statistics ---

@@ -6,7 +6,7 @@
 #    By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/25 16:42:02 by ssergiu           #+#    #+#              #
-#    Updated: 2022/10/09 22:22:43 by ssergiu          ###   ########.fr        #
+#    Updated: 2022/10/11 15:42:31 by ssergiu          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ BONUS_FILES = pipex_bonus \
 			  free_utils_bonus \
 			  init_bonus \
 			  heredoc \
+			  error_messages \
 
 GNL_FILES= get_next_line \
 		   get_next_line_utils \
@@ -54,7 +55,6 @@ all: $(NAME)
 
 $(BONUS): $(BONUS_OBJ) $(LIBFT_OBJ) $(PRINTF_OBJ) $(GNL_OBJ) include/pipex_bonus.h
 	@echo "\033[1;35m"Removing pipex mandatory binary..
-	@rm pipex
 	@echo Building bonus..
 	@$(CC) $(FLAGS) $(BONUS_OBJ) $(LIBFT_OBJ) $(PRINTF_OBJ) $(GNL_OBJ) -o pipex
 	@echo "\033[1;35m"Done.

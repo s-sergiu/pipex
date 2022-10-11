@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 01:03:37 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/10 02:34:16 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/11 16:36:21 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/pipex.h"
@@ -40,7 +40,7 @@ void	init_and_process_files(struct files *file, char **argv, int argc,
 	check_arg_count(argc);
 	init_counters(counter, argc);
 	init_files(file);
-	process_files(file, argv, argc);
+	process_files(file, argv);
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -50,6 +50,7 @@ int	main(int argc, char *argv[], char *envp[])
 	struct paths	path;	
 	pid_t			pid;
 
+	counter.envp = envp;
 	init_and_process_files(&file, argv, argc, &counter);
 	initialize_paths(envp, &path);
 	while (counter.i < argc - 1)
@@ -64,10 +65,9 @@ int	main(int argc, char *argv[], char *envp[])
 		if (counter.i++ != argc - 1)
 			free_bundle(&path);
 	}
-	while (waitpid(-1, &file.status, 0) != -1)
+	while ((waitpid(pid, 0, 0)) > 0)
 		;
 	close_fds(file.fileds[0], file.fileds[1]);
 	close_fds(file.infile, file.outfile);
 	free_split(path.split);
-	return (WEXITSTATUS(file.status));
 }

@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 02:36:48 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/10 02:46:35 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/11 16:24:59 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/pipex_bonus.h"
@@ -24,7 +24,6 @@ void	process_files(struct files *file, struct counters *counter,
 	else
 	{
 		file->infile = open(argv[1], O_RDONLY);
-		file->outfile = open(argv[argc - 1], O_WRONLY | O_TRUNC | O_CREAT, 0644);
 		if (file->infile < 0)
 		{
 			error = strerror(errno);
@@ -102,4 +101,26 @@ char	*pipex_ft_strjoin(char const *s1, char const *s2, int flag)
 	if (flag == 1)
 		free((char *)s1);
 	return (str);
+}
+
+void	handle_outfile(struct counters *counter, struct paths *path,
+			struct files *file, char **argv)
+{
+	char	*error;
+
+	file->outfile = open(argv[counter->argc - 1],
+			O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	if (access(argv[counter->argc - 1], W_OK))
+	{
+		error = strerror(errno);
+		ft_printf("%s: %s: %s\n", argv[0], argv[counter->argc - 1], error);
+		exit(1);
+	}
+	else
+	{
+		dup2(file->outfile, 1);
+		close_fds(file->fileds[0], file->fileds[1]);
+		if (path->arg && path->args)
+			execve(path->arg, path->args, counter->envp);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:23:15 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/09 23:20:22 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/11 16:37:41 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/pipex_bonus.h"
@@ -34,10 +34,7 @@ void	initialize_paths(char **envp, struct paths *path)
 
 void	init_counters(struct counters *counter, int argc)
 {
-	if (counter->heredoc == 1)
-		counter->i = 3;
-	else
-		counter->i = 2;
+	counter->i = 2;
 	counter->argc = argc;
 }
 
