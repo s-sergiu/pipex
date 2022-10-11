@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 01:03:37 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/11 16:36:21 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/11 19:02:21 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/pipex.h"
@@ -67,7 +67,6 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	while ((waitpid(pid, 0, 0)) > 0)
 		;
-	close_fds(file.fileds[0], file.fileds[1]);
-	close_fds(file.infile, file.outfile);
-	free_split(path.split);
+	close_and_free(&file, &path);
+	return (WEXITSTATUS(file.status));
 }

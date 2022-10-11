@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:45:35 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/10/11 16:32:53 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/10/11 19:02:52 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 # include <stdio.h>
 
 typedef struct counters{
-	int	i;
-	int	argc;
-	char **envp;
-	int	heredoc;
+	int		i;
+	int		argc;
+	char	**envp;
+	int		heredoc;
 }	t_counters;
 
 typedef struct files{
@@ -94,5 +94,6 @@ void		check_if_argc_is_last(struct counters *counter,
 				struct files *file, struct paths *path, char **argv);
 void		handle_outfile(struct counters *counter, struct paths *path,
 				struct files *file, char **argv);
+void		close_and_free(struct files *file, struct paths *path);
 
 #endif
